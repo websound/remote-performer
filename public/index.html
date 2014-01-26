@@ -21,6 +21,10 @@
         font-family: 'Raleway';
         font-size: 20px;
       }
+      #console {
+        height: 150px;
+        overflow-y: scroll;
+      }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
   </head>
@@ -50,11 +54,7 @@
         </div>
         <div class="alert alert-warning"><strong>Warning:</strong> This project is in early stages of development.</div>
         <p class="lead">This project is intended to enable multiple users to collaboratively play music in real-time by leveraging the <a href="http://www.w3.org/TR/webmidi/">Web MIDI API</a> and <a href="http://www.w3.org/TR/webaudio/">Web Audio API</a>.</p>
-        <div>
-          <a class="btn btn-primary" href="https://github.com/vine77/liveband">
-            <i class="icon-github-sign"></i> <i class="fa fa-github"></i> View Project on GitHub
-          </a>
-        </div>
+        <pre id="console"></pre>
       </div>
     </div>
     <div id="footer">
