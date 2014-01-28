@@ -1,4 +1,4 @@
-(function() {
+App = (function() {
   "use strict";
   var App = {};
   var notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -46,9 +46,9 @@
     App.activeNotes.push(pitch);
 
     // Play audio
+    var frequency = 440 * Math.pow(2, (pitch - 69)/12);
     var source = App.audioContext.createBufferSource();
-    //var playbackRate = 1;
-    //source.playbackRate.value = playbackRate;
+    source.playbackRate.value = frequency/440;
     source.buffer = App.audioBuffer;
     source.loop = false;
     source.connect(App.audioContext.destination);
@@ -59,7 +59,7 @@
     var position = App.activeNotes.indexOf(pitch);
     if (position != -1) {
       App.activeNotes.splice(position, 1);
-      App.audioSources[pitch].noteOff(0);
+      App.audioSources[pitch].gain.setTargetAtTime(0.0, App.audioContext.currentTime, 0.1);
     }
   };
   App.handleMidi = function(event) {
@@ -76,6 +76,8 @@
           break;
         } else {
           // Note off
+          App.noteOff(pitch);
+          break;
         }
       // Note off
       case 8:
@@ -86,4 +88,5 @@
   window.addEventListener('load', function() {
     App.load();
   });
+  return App;
 })();
