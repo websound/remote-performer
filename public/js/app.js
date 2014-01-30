@@ -16,7 +16,7 @@ App = (function() {
         var inputs = App.midiAccess.inputs();
         if (inputs.length > 0) {
           for (var i = 0; i < inputs.length; i++) {
-            inputs[i].onmidimessage = App.handleMidi;
+            inputs[i].onmidimessage = App.handleMidiEvent;
           }
         } else {
           window.alert('No MIDI devices detected. Please connect a MIDI device and reload the app.');
@@ -38,11 +38,15 @@ App = (function() {
     };
     xhr.send();
   };
+  App.noteToString = function (pitch) {
+    if (!pitch) return null;
+    var octave = Math.floor(pitch/12) - 1;
+    return notes[pitch % 12] + '<sub>' + octave + '</sub><br>';
+  };
   App.noteOn = function(pitch) {
     // Log note
-    var octave = Math.floor(pitch/12) - 1;
-    var note = notes[pitch % 12];
-    $('#console').prepend(note + '<sub>' + octave + '</sub><br>');
+    var note = App.noteToString(pitch);
+    $('#console').prepend(note);
     App.activeNotes.push(pitch);
 
     // Play audio
@@ -62,12 +66,14 @@ App = (function() {
       App.audioSources[pitch].gain.setTargetAtTime(0.0, App.audioContext.currentTime, 0.1);
     }
   };
-  App.handleMidi = function(event) {
-    console.log('handleMidi:', event.data);
-    var type = event.data[0] >> 4;
-    var channel = event.data[0] & 0x0F;
-    var pitch = event.data[1];
-    var velocity = event.data[2];
+  App.handleMidiEvent = function (event) {
+    App.handleMidi(event.data);
+  };
+  App.handleMidi = function(midiMessage) {
+    var type = midiMessage[0] >> 4;
+    var channel = midiMessage[0] & 0x0F;
+    var pitch = midiMessage[1];
+    var velocity = midiMessage[2];
     switch (type) {
       // Note on
       case 9:
@@ -85,8 +91,22 @@ App = (function() {
         break;
     }
   };
+  App.keyToMidi = function (key, isDown) {
+    // Start index is 56 for G# below middle C
+    var keyToNote = [81, 65, 87, 83, 68, 82, 70, 84, 71, 72, 85, 74, 73, 75, 79, 76, 186, 219, 222, 221];
+    var pitch = (keyToNote.indexOf(key) !== -1) ? keyToNote.indexOf(key) + 56 : null;
+    var type = (isDown) ? 9 : 8;
+    var velocity = 127;
+    if (!isDown || App.activeNotes.indexOf(pitch) === -1) App.handleMidi([(type << 4), pitch, velocity]);
+  };
   window.addEventListener('load', function() {
     App.load();
+  });
+  $(document).keydown(function (e) {
+    App.keyToMidi(e.which, true);
+  });
+  $(document).keyup(function (e) {
+    App.keyToMidi(e.which, false);
   });
   return App;
 })();
