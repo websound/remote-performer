@@ -2,6 +2,8 @@ App = (function() {
   "use strict";
   var App = {};
   var notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  var octave = 0;
+  var isOctaveKeyDown = false;
   App.audioContext = null;
   App.midiAccess = null;
   App.audioBuffer = null;
@@ -91,19 +93,26 @@ App = (function() {
         break;
     }
   };
-  App.keyToMidi = function (key, isDown) {
+  App.keyToMidi = function (key, isKeyDown) {
     // Start index is 56 for G# below middle C
     var keyToNote = [81, 65, 87, 83, 68, 82, 70, 84, 71, 72, 85, 74, 73, 75, 79, 76, 186, 219, 222, 221];
     var pitch = (keyToNote.indexOf(key) !== -1) ? keyToNote.indexOf(key) + 56 : null;
-    var type = (isDown) ? 9 : 8;
+    pitch = Math.max(0, pitch + octave*12);
+    var type = (isKeyDown) ? 9 : 8;
     var velocity = 127;
-    if (!isDown || App.activeNotes.indexOf(pitch) === -1) App.handleMidi([(type << 4), pitch, velocity]);
+    if (!isKeyDown || App.activeNotes.indexOf(pitch) === -1) App.handleMidi([(type << 4), pitch, velocity]);
   };
   window.addEventListener('load', function() {
     App.load();
   });
   $(document).keydown(function (e) {
-    App.keyToMidi(e.which, true);
+    if (e.which === 90) {  // Z
+      octave--;
+    } else if (e.which === 88) {  // X
+      octave++;
+    } else {
+      App.keyToMidi(e.which, true);
+    }
   });
   $(document).keyup(function (e) {
     App.keyToMidi(e.which, false);
