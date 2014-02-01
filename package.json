@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "Real-time music collaboration for the web",
   "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "postinstall": "bower install"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/vine77/liveband.git"
@@ -14,7 +18,9 @@
   },
   "homepage": "https://github.com/vine77/liveband",
   "dependencies": {
+    "bower": "~1.2.8",
+    "logfmt": "~0.18.1",
     "express": "~3.4.8",
-    "logfmt": "~0.18.1"
+    "ws": "~0.4.31"
   }
 }
