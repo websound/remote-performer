@@ -1,0 +1,23 @@
+{
+  "name": "LiveBand.js",
+  "version": "0.0.0",
+  "description": "Real-time music collaboration for the web",
+  "homepage": "https://github.com/vine77/liveband",
+  "authors": [
+    "Nathan Ward <ward@digivine.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "directory" : "public/components",
+  "dependencies": {
+    "bootstrap": "~3.1.0",
+    "jquery": "~2.1.0",
+    "font-awesome": "~4.0.3"
+  }
+}
