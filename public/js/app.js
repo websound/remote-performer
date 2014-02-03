@@ -10,6 +10,9 @@ App = (function() {
   App.audioSources = {};
   App.activeNotes = [];
   App.socket = null;
+  App.timestamp = 0;
+  App.sumLatencies = 0;
+  App.numberOfLatencies = 0;
   App.setupSocket = function () {
     var host = location.origin.replace(/^http/, 'ws');
     App.socket = new WebSocket(host);
@@ -18,7 +21,12 @@ App = (function() {
       var midiMessage = new Uint8Array(event.data);
       if (midiMessage[0] >> 4 === 9) {
         // Log note on events from websockets
-        $('#console').prepend('WS echo: pitch = ' + midiMessage[1] + '<br>');
+        $('#console').prepend('WS note: ' + midiMessage[1] + '<br>');
+        var latency = window.performance.now() - App.timestamp;
+        App.sumLatencies = App.sumLatencies + latency;
+        App.numberOfLatencies++;
+        $('#console').prepend('WS roundtrip: ' + Math.ceil(latency) + '<br>');
+        $('#averageLatency').html(Math.ceil(App.sumLatencies/App.numberOfLatencies));
       }
       if ($('input#echo').is(':checked')) {
         // Play harmony if checkbox is checked
@@ -87,6 +95,7 @@ App = (function() {
     }
   };
   App.handleMidiEvent = function (event) {
+    if (event.data[0] >> 4 === 9) App.timestamp = event.receivedTime;
     App.handleMidi(event.data);
     App.socket.send(event.data.buffer);
   };
