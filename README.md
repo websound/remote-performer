@@ -20,3 +20,16 @@ The initial stack will use [WebSockets](http://www.w3.org/TR/websockets/) via [N
       |  |  OUT  |    | synths |<-------------------------------------|   Keyboard  |  |
       |  +-------+    +--------+  |    |              |    |          +-------------+  |
       +---------------------------+    +--------------+    +---------------------------+
+
+## Getting started
+
+Plug your keyboard directly into your web browser
+
+1. Plug in a MIDI controller
+2. Open Chrome Canary
+3. Try it out yourself:
+    1. Clone repository: git clone https://github.com/vine77/liveband.git; cd liveband;
+    2. Install dependencies: npm install
+    3. Start server: node server
+    4. Browse to http://localhost:5000
+4. Or go a Heroku deployment at http://liveband.io

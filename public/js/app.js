@@ -26,7 +26,7 @@ App = (function() {
         App.sumLatencies = App.sumLatencies + latency;
         App.numberOfLatencies++;
         $('#console').prepend('WS roundtrip: ' + Math.ceil(latency) + '<br>');
-        $('#averageLatency').html(Math.ceil(App.sumLatencies/App.numberOfLatencies));
+        $('#averageLatency').html('Latency: ' + Math.ceil(App.sumLatencies/App.numberOfLatencies));
       }
       if ($('input#echo').is(':checked')) {
         // Play harmony if checkbox is checked
