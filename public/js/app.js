@@ -40,11 +40,11 @@ App = (function() {
     if (navigator.requestMIDIAccess) {
       navigator.requestMIDIAccess().then(function(midi) {
         App.midiAccess = midi;  // Required to prevent loss in MIDI input
-        var inputs = App.midiAccess.inputs();
-        if (inputs.length > 0) {
-          for (var i = 0; i < inputs.length; i++) {
-            inputs[i].onmidimessage = App.handleMidiEvent;
-          }
+        var inputs = App.midiAccess.inputs;
+        if (inputs.size > 0) {
+          inputs.forEach( function (port, key) {
+            port.onmidimessage = App.handleMidiEvent;
+          });
         } else {
           window.alert('No MIDI devices detected. Please connect a MIDI device and reload the app.');
         }
