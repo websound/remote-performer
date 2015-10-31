@@ -2,7 +2,7 @@
 
 >WIP
 
-## Getting Started
+## Usage
 1. Clone repository: `git clone https://github.com/vine77/midisocket.git; cd midisocket;`
 2. Install dependencies: `npm install`
 3. Start server: `node server`
