@@ -1,5 +1,7 @@
 ##Remote Performance example using WebMIDI and WebRTC
+
 >WIP
+
 ## Getting Started
 1. Clone repository: `git clone https://github.com/vine77/midisocket.git; cd midisocket;`
 2. Install dependencies: `npm install`
