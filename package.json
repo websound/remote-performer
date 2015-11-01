@@ -2,9 +2,9 @@
   "name": "LiveBand.js",
   "version": "0.0.0",
   "description": "Real-time music collaboration for the web",
-  "main": "server.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node server",
+    "start": "node src/index.js",
     "postinstall": "bower install",
     "lint": "./node_modules/.bin/standard"
   },
@@ -20,8 +20,9 @@
   "homepage": "https://github.com/vine77/liveband",
   "dependencies": {
     "bower": "~1.6.5",
-    "logfmt": "~0.18.1",
     "express": "~3.4.8",
+    "hapi": "^11.0.3",
+    "logfmt": "~0.18.1",
     "ws": "~0.4.31"
   }
 }
