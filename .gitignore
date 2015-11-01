@@ -1,2 +1,2 @@
-node_modules/
-public/components/
+**/node_modules
+**/bower_components
