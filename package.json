@@ -20,9 +20,8 @@
   "homepage": "https://github.com/vine77/liveband",
   "dependencies": {
     "bower": "~1.6.5",
-    "express": "~3.4.8",
     "hapi": "^11.0.3",
-    "logfmt": "~0.18.1",
+    "inert": "^3.2.0",
     "ws": "~0.4.31"
   }
 }
