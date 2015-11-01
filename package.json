@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "lint": "./node_modules/.bin/standard"
   },
   "repository": {
     "type": "git",
