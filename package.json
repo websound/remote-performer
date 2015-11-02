@@ -1,27 +1,35 @@
 {
-  "name": "LiveBand.js",
+  "name": "remote-performer",
   "version": "0.0.0",
   "description": "Real-time music collaboration for the web",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "postinstall": "bower install",
-    "lint": "./node_modules/.bin/standard"
+    "build": "browserify -t brfs src/public/js/app.js > src/public/js/bundle.js",
+    "start": "npm run build && node src/index.js",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vine77/liveband.git"
+    "url": "https://github.com/websound/RemotePerformer.git"
   },
   "author": "Nathan Ward",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vine77/liveband/issues"
+    "url": "https://github.com/websound/RemotePerformer/issues"
   },
-  "homepage": "https://github.com/vine77/liveband",
+  "homepage": "https://github.com/websound/RemotePerformer",
   "dependencies": {
-    "bower": "~1.6.5",
+    "bootstrap": "~3.1.0",
+    "brfs": "^1.4.1",
+    "font-awesome": "~4.0.3",
     "hapi": "^11.0.3",
     "inert": "^3.2.0",
+    "insert-css": "^0.2.0",
+    "jquery": "~2.1.0",
     "ws": "~0.4.31"
+  },
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "standard": "^5.3.1"
   }
 }
