@@ -29,6 +29,7 @@
     "ws": "~0.4.31"
   },
   "devDependencies": {
-    "browserify": "^12.0.1"
+    "browserify": "^12.0.1",
+    "standard": "^5.3.1"
   }
 }
