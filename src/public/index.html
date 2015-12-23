@@ -6,38 +6,26 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>LiveBand.js</title>
+    <title>Remote Performer</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400">
   </head>
   <body>
-    <div id="wrap">
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><i class="fa fa-music"></i> LiveBand.js</a>
-          </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="https://github.com/vine77/liveband"><i class="fa fa-github"></i> Project on GitHub</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <a href="https://github.com/websound/RemotePerformer">
+      <img 
+        style="position: absolute; top: 0; left: 0; border: 0;" 
+        src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" 
+        alt="Fork me on GitHub" 
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" />
+    </a>
       <div class="container">
         <div class="page-header">
-          <h1>Real-time music collaboration for the web</h1>
+          <h1>Live music collaboration lead by a remote performer.</h1>
         </div>
-        <div class="alert alert-warning"><strong>Warning:</strong> This project is in early stages of development.</div>
-        <p class="lead">This project is intended to enable multiple users to collaboratively play music in real-time by leveraging the <a href="http://www.w3.org/TR/webmidi/">Web MIDI API</a> and <a href="http://www.w3.org/TR/webaudio/">Web Audio API</a>.</p>
+        <div class="alert alert-warning"><strong>Note:</strong> This project is in early stages of development.</div>
+        <p class="lead">Remote Performer aims to let a distributed musician be the lead & master tempo source for accompanying players in a realtime live music setting. It does this by utilizing the <a href="http://www.w3.org/TR/webmidi/">Web MIDI</a> and <a href="http://www.w3.org/TR/webaudio/">Web Audio</a> APIs.</p>
         <p>
           <span id="averageLatency" class="pull-right"></span>
           <label><input id="echo" type="checkbox"> Play echoed MIDI from websocket as harmony</label>
@@ -47,7 +35,7 @@
     </div>
     <div id="footer">
       <div class="container">
-        <p class="text-muted pull-right">Sponsored by <a href="http://digivine.com"><img src="http://digivine.com/wp-content/themes/digivine/images/logo.png" alt="Digivine" style="height:16px;"></a></p>
+        <p class="text-muted pull-right">From the believers in community-music at > <a href="https://github.com/websound/WebSound">WebSound</a></p>
       </div>
     </div>
     <script src="js/bundle.js"></script>
