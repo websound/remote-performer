@@ -1,6 +1,8 @@
 /* globals location, WebSocket, $, AudioContext, XMLHttpRequest */
 window.jQuery = window.$ = require('jquery')
 
+/* Global Declarations */
+
 var fs = require('fs')
 var insertCss = require('insert-css')
 var bootstrap = require('bootstrap/dist/js/bootstrap') // eslint-disable-line
@@ -10,7 +12,14 @@ insertCss(bsStyle)
 var App = {}
 var notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 var octave = 0
+
+var channels = 2
+var bufferSampleSize = 22050
+var sampleRate = 44100
 // var isOctaveKeyDown = false
+
+/* App Declarations */
+
 App.audioContext = null
 App.midiAccess = null
 App.audioBuffer = null
@@ -20,6 +29,10 @@ App.socket = null
 App.timestamp = 0
 App.sumLatencies = 0
 App.numberOfLatencies = 0
+App.source
+
+/* WebSocket Connection */
+
 App.setupSocket = function () {
   var host = location.origin.replace(/^http/, 'ws')
   App.socket = new WebSocket(host)
@@ -41,6 +54,9 @@ App.setupSocket = function () {
     }
   }
 }
+
+/* Load App */
+
 App.load = function () {
   window.AudioContext = window.AudioContext || window.webkitAudioContext
   App.audioContext = new AudioContext()
@@ -61,18 +77,36 @@ App.load = function () {
   } else {
     window.alert('Your browser does not support MIDI input. Please use Google Chrome Canary.')
   }
-  App.loadSounds()
+  App.getPing()
   App.setupSocket()
 }
-App.loadSounds = function () {
-  var xhr = new XMLHttpRequest()
-  xhr.open('GET', 'ping.wav', true)
-  xhr.responseType = 'arraybuffer'
-  xhr.onload = function (event) {
-    App.audioBuffer = App.audioContext.createBuffer(event.target.response, false)
+
+/* Get and Play Ping */
+
+var audioContext = new AudioContext()
+
+App.getPing = function (url, cb) {
+  var request = new XMLHttpRequest()
+
+  request.open('GET', '../ping.wav', true)
+  request.responseType = 'arraybuffer'
+  request.onload = function () {
+    var audioData = request.response
+
+    // Wait 100ms for sample to download/decode.
+    var startTime = audioContext.currentTime + 0.2
+
+    App.audioContext.decodeAudioData(audioData, function(buffer){
+      App.source = App.audioContext.createBufferSource()
+      App.source.buffer = buffer
+      App.source.connect(App.audioContext.destination)
+      App.source.start(startTime)
+    }, 
+    function(e){"Error with decoding audio data" + e.err})
   }
-  xhr.send()
+  request.send()
 }
+
 App.noteToString = function (pitch) {
   if (!pitch) return null
   var octave = Math.floor(pitch / 12) - 1
@@ -83,15 +117,14 @@ App.noteOn = function (pitch) {
   var note = App.noteToString(pitch)
   $('#console').prepend(note)
   App.activeNotes.push(pitch)
+  App.getPing()
 
-  // Play audio
+  /* Play audio */
   var frequency = 440 * Math.pow(2, (pitch - 69) / 12)
-  var source = App.audioContext.createBufferSource()
-  source.playbackRate.value = frequency / 440
-  source.buffer = App.audioBuffer
-  source.loop = false
-  source.connect(App.audioContext.destination)
-  source.noteOn(0)
+  App.source.playbackRate.value = frequency / 440
+  App.source.loop = false
+  App.source.connect(App.audioContext.destination)
+  App.source.start(0)
   App.audioSources[pitch] = source
 }
 App.noteOff = function (pitch) {
