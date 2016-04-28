@@ -22,6 +22,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Raleway';
   font-size: 20px;
 }
+#echo {
+  display: none;
+}
 #console {
   height: 150px;
   overflow-y: scroll;
@@ -48,4 +51,3 @@ label {
   font-weight: normal;
   cursor: pointer;
 }
-

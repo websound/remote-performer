@@ -1,4 +1,4 @@
-var WebSocketServer = require('ws').Server
+var attachWSS = require('./ws-server.js')
 var Hapi = require('hapi')
 
 var server = new Hapi.Server({})
@@ -28,24 +28,6 @@ server.register(require('inert'), function (err) {
     }
 
     console.log('Server running at:', server.info.uri)
-    attachWSS()
+    attachWSS(server)
   })
 })
-
-function attachWSS () {
-  // Websocket server
-  var wss = new WebSocketServer({server: server.listener})
-  console.log('websocket server created')
-  wss.on('connection', function (ws) {
-    ws.on('message', function (data, flags) {
-      if (flags.binary) { // If received binary message, i.e. MIDI
-        console.log('MIDI:', data)
-        ws.send(data, {binary: true}) // Echo MIDI message back to client
-      }
-    })
-    console.log('websocket connection open')
-    ws.on('close', function () {
-      console.log('websocket connection close')
-    })
-  })
-}
