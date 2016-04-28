@@ -11,4 +11,6 @@ Remote Performance example using WebMIDI and WebRTC
 4. Plug in a MIDI controller
 5. Browse to [http://localhost:9090](http://localhost:9090) (Google Chrome Only)
 
-This codebase began as a fork of [midisocket](https://github.com/vine77/midisocket)
+-
+
+_This code originated from a fork of [midisocket](https://github.com/vine77/midisocket)_
