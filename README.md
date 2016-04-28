@@ -16,4 +16,4 @@ Remote Performance example using WebMIDI and WebRTC
 
 -
 
-_This code originated from a fork of [midisocket](https://github.com/vine77/midisocket)_
+_This code originated as a fork of [midisocket](https://github.com/vine77/midisocket)_
