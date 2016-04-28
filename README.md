@@ -12,7 +12,7 @@ Remote Performance example using WebMIDI and WebRTC
 5. Point your browser to [http://localhost:9090](http://localhost:9090) (Google Chrome Only)
 6. Download [ngrok](https://ngrok.com/) 
 7. Move to the directory containing ngrok and expose your local web server at port 9090 `$ ./ngrok http 9090`
-6. Share your ngrok URL and Play!
+8. Share your ngrok generated URL and Play!
 
 -
 
