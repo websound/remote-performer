@@ -1,5 +1,6 @@
 var attachWSS = require('./ws-server.js')
 var Hapi = require('hapi')
+var path = require('path')
 
 var server = new Hapi.Server({})
 
@@ -17,7 +18,7 @@ server.register(require('inert'), function (err) {
     path: '/{param*}',
     handler: {
       directory: {
-        path: __dirname + '/public'
+        path: path.join(__dirname, '/public')
       }
     }
   })
