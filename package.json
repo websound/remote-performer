@@ -30,6 +30,7 @@
     "inert": "^3.2.0",
     "insert-css": "^0.2.0",
     "jquery": "~2.1.0",
+    "process-nextick-args": "^1.0.7",
     "watchify": "^3.7.0",
     "ws": "~0.4.31"
   },
