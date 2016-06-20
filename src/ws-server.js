@@ -12,6 +12,10 @@ module.exports = function attachWSS (server) {
 
   console.log('websocket server created')
   wss.on('connection', function (ws) {
+    
+    // HACK: use internal socket object to disable Nagle's algorithm
+    ws._socket.setNoDelay();
+    
     ws.broadcast = function broadcast (data, flags) {
       wss.clients.forEach(function bc (client) {
         if (client === ws) return
